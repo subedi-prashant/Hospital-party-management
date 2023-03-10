@@ -1,0 +1,101 @@
+﻿@model CareLab.Models.CombinedData
+
+@{
+    ViewBag.Title = "DropDown";
+}
+<script src="~/JS/Select2.js"></script>
+<script>
+    $(document).ready(function () {
+        var selectedData = [];
+        $('#add-button').click(function () {
+            var id = $('select[name=data]').val();
+            if (id != '') {
+                var name = $('select[name=data] option:selected').text();
+                var data = @Html.Raw(Json.Encode(Model.MergedData));
+                var item = data.filter(function (obj){ 
+                    return obj.ID == id && obj.Name == name;
+                })[0];
+                var exists = selectedData.some(function (obj) {
+                    return obj.ID == item.ID && obj.Name == item.Name;
+                });
+                if (exists) {
+                    alert('Item is already present in the list table.');
+                    console.log('already exists');
+                } else {
+                    selectedData.push(item);
+                    var newRow = $('table.selected-data-table tbody')
+                        .append('<tr style="background-color: ' + item.ColorCode + '"><td>' + item.ID + '</td><td>' + item.Name + '</td><td><button class="remove-button" data-id="' + item.ID + '"><i class="far fa-trash-alt"></button></td></tr>');
+                }
+                console.log('item:', item);
+                console.log('selectedData:', selectedData);
+                console.log('exists:', exists);
+            }
+        });
+        //Remove button
+        $('table.selected-data-table tbody').on('click', '.remove-button', function () {
+            var id = $(this).data('id');
+            selectedData = selectedData.filter(function (obj) {
+                return obj.ID != id;
+            });
+            $(this).closest('tr').remove();
+        });
+        //select2 plugin
+        //$(function () {
+        //    $('#mySelect').select2();
+        //});
+
+        $('#mySelect').select2({
+            templateResult: function (data) {
+                if (!data.id) {
+                    // return original text for placeholder
+                    return data.text;
+                }
+
+                var colorCode = data.element.dataset.colorCode;
+                return $('<option></option>', {
+                    style: 'background-color: ' + colorCode,
+                    text: data.text
+                });
+            }
+        });
+    });
+</script>
+<style>
+       /*  .select2-results__option {
+            background-color: blue;
+        }*/
+</style>
+<h2>DropDown</h2>
+
+<div class="select-bar">
+    <select class="col-md-6" id="mySelect" name="data">
+        @foreach (var item in Model.MergedData)
+        {
+            <option value="@item.ID" data-color-code="@item.ColorCode">@item.Name</option>
+        }
+    </select>
+    <button class="btn btn-danger" type="button" id="add-button">Add</button>
+</div>
+<br />
+<div class="col-md-4">
+    <table id="item-table" class="table table-bordered selected-data-table ">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @*@foreach (var item in Model.SelectedData)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.Name</td>
+                </tr>
+            }*@
+        </tbody>
+    </table>
+</div>
+
+

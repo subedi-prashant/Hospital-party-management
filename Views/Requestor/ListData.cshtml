@@ -1,0 +1,86 @@
+﻿@model IEnumerable<CareLab.Models.Requestor>
+
+@{
+    Layout = null;
+}
+
+<body>
+    <h4>Requestor Lists</h4>
+    <hr />
+    <div class="table-responsive">
+        <table class="table" id="dataTableData">
+            <thead>
+                <tr class="bg-primary">
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Contactno)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Contactperson)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mobileno)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Code)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Entrydate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Requestorname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contactno)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contactperson)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mobileno)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Entrydate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Requestorname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success btn-sm" data-toggle="ajax-modal" data-target="#edit" data-url="@Url.Action($"Edit/{item.UserID}")"><i class="fas fa-edit"></i></button>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="ajax-modal" data-target="#delete" data-url="@Url.Action($"Delete/{item.UserID}")"><i class="far fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+
+

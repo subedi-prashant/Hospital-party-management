@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CareLab", "CareLab.csproj", "{61A7752B-DAA2-4FE4-A62C-791CD8AD318F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61A7752B-DAA2-4FE4-A62C-791CD8AD318F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61A7752B-DAA2-4FE4-A62C-791CD8AD318F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61A7752B-DAA2-4FE4-A62C-791CD8AD318F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61A7752B-DAA2-4FE4-A62C-791CD8AD318F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE6D8C19-6CB3-4911-87B4-83F3C944E26E}
+	EndGlobalSection
+EndGlobal

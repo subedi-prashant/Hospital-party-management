@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CareLab.Models.CreditParty>
+
+@{
+    Layout = null;
+}
+<body>
+    <h4>Credit Party Lists</h4>
+    <hr />
+    <table class="table table-hover table-bordered table-responsive" id="dataTableData">
+        <thead>
+            <tr class="bg-primary">
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Codeno)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PAN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Credit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phoneno)
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codeno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PAN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Credit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phoneno)
+                    </td>
+                    <!--<td>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="ajax-modal" data-target="#edit" data-url="@Url.Action($"Edit/{item.Codeno}")">Edit</button>-->
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.Codeno }) |*@
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Codeno })*@
+                    <!--<button type="button" class="btn btn-danger btn-sm" data-toggle="ajax-modal" data-target="#editPatient" data-url="@Url.Action($"Delete/{item.Codeno}")">Delete</button>
+                    </td>-->
+
+                    <td>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="ajax-modal" data-target="#edit" data-url="@Url.Action($"Edit/{item.Codeno}")"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="ajax-modal" data-target="#editPatient" data-url="@Url.Action($"Delete/{item.Codeno}")"><i class="far fa-trash-alt"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+

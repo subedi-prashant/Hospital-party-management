@@ -1,0 +1,50 @@
+﻿@model CareLab.Models.TablesViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/JS/site.js"></script>
+<script src="~/JS/dataTables.js"></script>
+<script>
+    function searchTables() {
+        // Get the search term from the search input
+        var searchTerm = $('#searchInput').val();
+
+        // Search each table and redraw it with the search term
+        $('#myTable1').DataTable().search(searchTerm).draw();
+        $('#myTable2').DataTable().search(searchTerm).draw();
+        $('#myTable3').DataTable().search(searchTerm).draw();
+    }
+</script>
+
+<div id="PlaceHolderHere"></div>
+
+
+<!-- or, use the keyup event on the search input -->
+<br />
+<input class="form-control" id="searchInput" type="text" placeholder="Search..." onkeyup="searchTables()">
+<br />
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="navbar-link active" id="CreditParty-tab" data-toggle="tab" href="#CreditParty" role="tab" aria-controls="CreditParty" aria-selected="true">CreditParty</a>
+    </li>
+    <li class="nav-item">
+        <a class="navbar-link" id="Referred-tab" data-toggle="tab" href="#Referred" role="tab" aria-controls="Referred" aria-selected="false">Referred</a>
+    </li>
+    <li class="nav-item">
+        <a class="navbar-link" id="Requestor-tab" data-toggle="tab" href="#Requestor" role="tab" aria-controls="Requestor" aria-selected="false">Requestor</a>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    @*Render the partial views inside the tab content*@
+    <div class="tab-pane fade" id="Requestor" role="tabpanel" aria-labelledby="Requestor-tab">
+        @Html.Partial("_Requestor", Model.RequestorData)
+    </div>
+    <div class="tab-pane fade" id="Referred" role="tabpanel" aria-labelledby="Referred-tab">
+        @Html.Partial("_Referred", Model.ReferredData)
+    </div>
+    <div class="tab-pane fade show active" id="CreditParty" role="tabpanel" aria-labelledby="CreditParty-tab">
+        @Html.Partial("_CreditParty", Model.CreditPartyData)
+    </div>
+</div>

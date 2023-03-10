@@ -1,0 +1,118 @@
+﻿@model CareLab.Models.TablesViewModel
+
+@{
+    ViewBag.Title = "SelectBar";
+}
+
+<h2>SelectBar</h2>
+
+<div class="select-bar">
+   @* @Html.DropDownList("data", new SelectList(Model.ReferredData.Select(r => new SelectListItem { Value = r.UserID.ToString(), Text = r.Doctorname }).Concat(Model.RequestorData.Select(req => new SelectListItem { Value = req.UserID.ToString(), Text = req.Requestorname })).Concat(Model.CreditPartyData.Select(cp => new SelectListItem { Value = cp.Codeno.ToString(), Text = cp.Name })), "Value", "Text"), "Select an item", new { @class = "form-control" })*@
+    <select class="col-md-4" id="mySelect" name="data">
+        @foreach (var item in Model.CreditPartyData)
+        {
+            <option value="@item.Codeno">@item.Name</option>
+        }
+    </select>
+    <button class="btn btn-primary" type="button" id="add-button">Add</button>
+</div>
+<br />
+<div class="col-md-4">
+    <table class="table table-bordered selected-data-table ">
+        <thead>
+            <tr>
+                <th>Codeno</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.SelectedCP)
+            {
+                <tr>
+                    <td>@item.Codeno</td>
+                    <td>@item.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script src="~/JS/Select2.js"></script>
+<script>
+    $(document).ready(function () {
+        var selectedData = [];
+        $('#add-button').click(function () {
+            var id = $('select[name=data]').val();
+            if (id != '') {
+                var data = @Html.Raw(Json.Encode(Model.CreditPartyData));
+                var item = data.filter(function (obj) {
+                    return obj.Codeno == id;
+                })[0];
+                var exists = selectedData.some(function (obj) {
+                    return obj.Codeno == item.Codeno;
+                });
+                if (exists) {
+                    alert('Item is already present in the list table.');
+                    console.log('already exists');
+                } else {
+                    selectedData.push(item);
+                    $('table.selected-data-table tbody').append('<tr><td>' + item.Codeno + '</td><td>' + item.Name + '</td></tr>');
+                }
+                console.log('item:', item);
+                console.log('selectedData:', selectedData);
+                console.log('exists:', exists);
+            }
+        });
+        $(function () {
+            $('#mySelect').select2();
+        });
+    });
+</script>
+
+<!--<script>
+    $(document).ready(function () {
+        $('#add-button').click(function () {
+            var id = $('select[name=data]').val();
+            if (id != '') {
+                var data = @Html.Raw(Json.Encode(Model.CreditPartyData));
+                var selectedData = [];-->
+@*if (typeof @Html.Raw(Json.Encode(Model.SelectedCP)) !== 'undefined' && @Html.Raw(Json.Encode(Model.SelectedCP)) != null) {
+        selectedData = @Html.Raw(Json.Encode(Model.SelectedCP));
+    }*@
+<!--var item = data.filter(function (obj) {
+                    return obj.Codeno == id;
+                })[0];
+                var exists;
+                if (exists) {
+                    alert('Item is already present in the list table.');
+                    console.log('already exists');
+                } else {
+                    selectedData.push(item);
+                    //console.log('selectedData:', selectedData);
+                    $('table.selected-data-table tbody').append('<tr><td>' + item.Codeno + '</td><td>' + item.Name + '</td></tr>');
+                }
+                console.log('item:', item);
+                console.log('selectedData:', selectedData);
+                console.log('exists:', exists);
+                //selectedData.push(item);
+                //var exists = selectedData.some(function (obj) {
+                //    return obj.Codeno === item.Codeno;
+                //});
+                //console.log('item:', item);
+                //console.log('selectedData:', selectedData);
+                //console.log('exists:', exists);
+                //if (exists) {
+                //    alert('Item is already present in the list table.');
+                //    console.log('already exists');
+                //} else {
+                //    selectedData.push(item);
+                //    console.log('updated selectedData:', selectedData);
+                //    $('table.selected-data-table tbody').append('<tr><td>' + item.Codeno + '</td><td>' + item.Name + '</td></tr>');
+                //}
+                //$('table.selected-data-table tbody').html('');
+                //$.each(selectedData, function (index, value) {
+                //    $('table.selected-data-table tbody').append('<tr><td>' + value.Codeno + '</td><td>' + value.Name + '</td></tr>');
+                //});
+            }
+        });
+    });
+</script>-->

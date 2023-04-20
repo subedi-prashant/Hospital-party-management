@@ -11,12 +11,13 @@
             var id = $('select[name=data]').val();
             if (id != '') {
                 var name = $('select[name=data] option:selected').text();
+                var tablename = $('select[name=data] option:selected').attr('table-name');
                 var data = @Html.Raw(Json.Encode(Model.MergedData));
-                var item = data.filter(function (obj){ 
-                    return obj.ID == id && obj.Name == name;
+                var item = data.filter(function (obj) {
+                    return obj.ID == id && obj.Name == name && obj.TableName == tablename;
                 })[0];
                 var exists = selectedData.some(function (obj) {
-                    return obj.ID == item.ID && obj.Name == item.Name;
+                    return obj.ID == item.ID && obj.Name == item.Name && obj.TableName == item.TableName;
                 });
                 if (exists) {
                     alert('Item is already present in the list table.');
@@ -71,7 +72,7 @@
     <select class="col-md-6" id="mySelect" name="data">
         @foreach (var item in Model.MergedData)
         {
-            <option value="@item.ID" data-color-code="@item.ColorCode">@item.Name</option>
+            <option value="@item.ID" data-color-code="@item.ColorCode" table-name="@item.TableName">@item.Name</option>
         }
     </select>
     <button class="btn btn-danger" type="button" id="add-button">Add</button>
